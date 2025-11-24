@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:gravity="center_horizontal"
+    android:id="@+id/fragment_logeo"
+    tools:context=".FragmentLogeo"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/text_mantech"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mantech"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Correo electrónico"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/L_Usuario"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="example@example.com"
+        android:inputType="textEmailAddress"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contraseña"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/L_contraseña"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="************"
+        android:inputType="textPassword"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:drawableEnd="@drawable/ic_visibility_off"
+        android:drawablePadding="8dp"
+        android:layout_marginBottom="48dp"/>
+
+    <Button
+        android:id="@+id/L_btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Iniciar sesion"
+        android:textAllCaps="false"
+        android:padding="12dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/botonFinalizar"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>

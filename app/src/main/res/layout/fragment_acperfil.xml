@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:id="@+id/fragment_acperfil"
+    >
+
+    <!-- Encabezado -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back_arrow"
+            android:contentDescription="Volver atrás"
+            app:tint="@android:color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Actualizar perfil"
+            android:textColor="@android:color/black"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Contenido -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Imagen de perfil -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="40dp">
+
+                <ImageView
+                    android:id="@+id/ivProfileIcon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="Ícono de Perfil"
+                    android:src="@drawable/ic_default_profile"
+                    android:tint="@color/black" />
+            </RelativeLayout>
+
+            <!-- Nombre -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Ingresa tu nombre"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Nombre -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apellido paterno"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etApP"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Ingresa tu apellido paterno"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Nombre -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apellido materno"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etApM"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Ingresa tu apellido materno"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Teléfono -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teléfono"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Ingresa tu teléfono"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:inputType="phone"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Correo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Correo"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Ingresa tu correo"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Fecha de nacimiento -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de nacimiento"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/rounded_edittext_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="AAAA-MM-DD"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:focusable="false"
+                android:clickable="true"
+                android:layout_marginBottom="32dp" />
+
+
+            <!-- Botón -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCActualizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#2196F3"
+                android:fontFamily="sans-serif-medium"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="Actualizar"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:cornerRadius="24dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

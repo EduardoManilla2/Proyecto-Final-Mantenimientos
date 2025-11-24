@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- Nombre de la actividad -->
+    <TextView
+        android:id="@+id/tvNombreAct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre de la actividad"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingBottom="4dp"/>
+
+    <!-- CheckBoxes del 1 al 5 -->
+    <LinearLayout
+        android:id="@+id/layoutCheckBoxes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:weightSum="5"
+        android:paddingTop="4dp">
+
+        <CheckBox
+            android:id="@+id/cb1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1"
+            android:gravity="center"/>
+
+        <CheckBox
+            android:id="@+id/cb2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2"
+            android:gravity="center"/>
+
+        <CheckBox
+            android:id="@+id/cb3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3"
+            android:gravity="center"/>
+
+        <CheckBox
+            android:id="@+id/cb4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="4"
+            android:gravity="center"/>
+
+        <CheckBox
+            android:id="@+id/cb5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

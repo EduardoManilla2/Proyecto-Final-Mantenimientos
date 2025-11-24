@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="rojoCard">#F44336</color>
+    <color name="red_200">#EF9A9A</color>
+    <color name="naranjaCard">#FF9800</color>
+    <color name="teal_200">#FEE5C1</color>
+
+    <color name="blue_text">#1976D2</color>
+    <color name="light_blue">#BBDEFB</color>
+    <color name="divider_color">#0030F3</color>
+    <color name="light_gray">#F0F0F0</color>
+    <color name="date_color">#4CAF50</color>
+    <color name="green_task_button">#4CAF50</color>
+    <color name="green_200">#A5D6A7</color>
+    <color name="verdeCard">#00AA00</color>
+    <color name="menuSombra">#C1E9FE</color>
+
+    <color name="botonFinalizar">#2260FF</color>
+
+
+    <color name="white">#FFFFFF</color>
+
+    <color name="light_blue_indicator">#C1E9FE</color>
+
+    <color name="icon_text_color">#212121</color>
+    <color name="blue_2196F3">#2196F3</color>
+
+    <color name="estado_general">#007AFF</color>
+    <color name="estado_ok">#4CAF50</color>
+    <color name="estado_pendiente">#FFA500</color>
+    <color name="estado_vencido">#FF0000</color>
+
+
+
+
+</resources>
