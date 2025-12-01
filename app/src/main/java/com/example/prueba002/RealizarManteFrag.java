@@ -63,11 +63,11 @@ public class RealizarManteFrag extends Fragment {
         observaciones_finales = view.findViewById(R.id.R_observaciones_finales);
         btnFinalizar = view.findViewById(R.id.btn_finalizar_registrar);
 
-        // Fecha actual
+
         String fechaFormateada = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         fechaActu.setText(fechaFormateada);
 
-        // Obtener datos del bundle
+
         if (getArguments() != null) {
             idMantenimiento = getArguments().getString("idM");
             String idEquipo = getArguments().getString("idEquipo");
@@ -92,7 +92,7 @@ public class RealizarManteFrag extends Fragment {
             Toast.makeText(getContext(), "ID de mantenimiento no recibido", Toast.LENGTH_SHORT).show();
         }
 
-        // Botón finalizar con diálogo Material
+
         btnFinalizar.setOnClickListener(v -> mostrarDialogoFinalizar());
 
 
@@ -100,13 +100,11 @@ public class RealizarManteFrag extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 3. Lógica para regresar al Fragmento anterior
-                // Esto simula la funcionalidad de la flecha de "volver"
+
                 if (getParentFragmentManager().getBackStackEntryCount() > 0) {
                     getParentFragmentManager().popBackStack();
                 } else {
-                    // Opcional: Si no hay fragmentos en el back stack,
-                    // puedes cerrar la actividad.
+
                     if (getActivity() != null) {
                         getActivity().onBackPressed();
                     }
@@ -120,7 +118,7 @@ public class RealizarManteFrag extends Fragment {
     }
 
     private void cargarActividades(String idMante) {
-        String url = "http://192.168.0.199:8000/getManteActi/" + idMante;
+        String url = "http://172.16.23.167:8001/getManteActi/" + idMante;
 
         JsonArrayRequest request = new JsonArrayRequest(url,
                 response -> {
@@ -169,7 +167,7 @@ public class RealizarManteFrag extends Fragment {
     }
 
     private void finalizarMantenimiento() {
-        // No importa el cumplimiento, siempre se marca como Realizado
+
         String nuevoEstatus = "Realizado";
 
         String nuevasObs = observaciones_finales.getText().toString().trim();
@@ -178,7 +176,7 @@ public class RealizarManteFrag extends Fragment {
 
 
     private void actualizarObservaciones(String obs, String estatus) {
-        String url = "http://192.168.0.199:8000/putObservaciones/" + idMantenimiento;
+        String url = "http://172.16.23.167:8001/putObservaciones/" + idMantenimiento;
 
         JSONObject json = new JSONObject();
         try {
@@ -196,7 +194,7 @@ public class RealizarManteFrag extends Fragment {
     }
 
     private void actualizarEstatus(String estatus) {
-        String url = "http://192.168.0.199:8000/putEstatus/" + idMantenimiento;
+        String url = "http://172.16.23.167:8001/putEstatus/" + idMantenimiento;
 
         JSONObject json = new JSONObject();
         try {
@@ -217,13 +215,13 @@ public class RealizarManteFrag extends Fragment {
     }
 
     private void irADetalles() {
-        // Enviar mensaje al fragment anterior para que se actualice
+
         Bundle result = new Bundle();
         result.putBoolean("actualizar", true);
 
         getParentFragmentManager().setFragmentResult("actualizacion_mantenimiento", result);
 
-        // Regresar
+
         if (getParentFragmentManager().getBackStackEntryCount() > 0) {
             getParentFragmentManager().popBackStack();
         } else if (getActivity() != null) {

@@ -19,7 +19,7 @@ import java.util.List;
 public class MantenimientoAdapter extends RecyclerView.Adapter<MantenimientoAdapter.MantenimientoViewHolder> {
 
     private List<Mantenimiento> listaMantenimientos;
-    private List<Mantenimiento> listaCompleta; // copia original
+    private List<Mantenimiento> listaCompleta;
 
     public MantenimientoAdapter(List<Mantenimiento> listaMantenimientos) {
         this.listaMantenimientos = listaMantenimientos;
@@ -71,17 +71,17 @@ public class MantenimientoAdapter extends RecyclerView.Adapter<MantenimientoAdap
         return listaMantenimientos.size();
     }
 
-    // 🔍 Filtrado de mantenimientos
+
     @SuppressLint("NotifyDataSetChanged")
     public void filter(String texto) {
         listaMantenimientos.clear();
 
         if (texto == null || texto.trim().isEmpty()) {
-            listaMantenimientos.addAll(listaCompleta); // sin filtro
+            listaMantenimientos.addAll(listaCompleta);
         } else {
             String query = texto.toLowerCase();
             for (Mantenimiento m : listaCompleta) {
-                if ((String.valueOf(m.getIdMantenimiento()).toLowerCase().contains(query)) // 👈 ahora busca también por ID
+                if ((String.valueOf(m.getIdMantenimiento()).toLowerCase().contains(query))
                         || (m.getNombreEquipo() != null && m.getNombreEquipo().toLowerCase().contains(query))
                         || (m.getEstatus() != null && m.getEstatus().toLowerCase().contains(query))
                         || (m.getActividad() != null && m.getActividad().toLowerCase().contains(query))
@@ -94,7 +94,7 @@ public class MantenimientoAdapter extends RecyclerView.Adapter<MantenimientoAdap
     }
 
 
-    // 🔁 Actualizar datos desde la API
+
     @SuppressLint("NotifyDataSetChanged")
     public void updateData(List<Mantenimiento> nuevosDatos) {
         listaMantenimientos.clear();
@@ -104,7 +104,7 @@ public class MantenimientoAdapter extends RecyclerView.Adapter<MantenimientoAdap
         notifyDataSetChanged();
     }
 
-    // ViewHolder
+
     public static class MantenimientoViewHolder extends RecyclerView.ViewHolder {
         TextView tvIdMantenimiento, tvEstatus, tvFechaCierre, tvIdEquipo, tvLabo;
         Button btnDetalle;

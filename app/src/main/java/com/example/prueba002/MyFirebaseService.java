@@ -23,9 +23,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseService";
 
-    // ---------------------------------------------------------
-    // 🔥 CUANDO SE GENERA O CAMBIA EL TOKEN AUTOMÁTICO
-    // ---------------------------------------------------------
+
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
@@ -42,10 +40,6 @@ public class MyFirebaseService extends FirebaseMessagingService {
         enviarTokenAlServidor(usuario, token);
     }
 
-
-    // ---------------------------------------------------------
-    // 🔥 NOTIFICACIÓN RECIBIDA
-    // ---------------------------------------------------------
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -58,17 +52,16 @@ public class MyFirebaseService extends FirebaseMessagingService {
             body = remoteMessage.getNotification().getBody();
         }
 
+
         mostrarNotificacion(title, body);
+        guardarNotificacion(getApplicationContext(), title, body);
     }
 
 
-    // ---------------------------------------------------------
-    // 🔥 MÉTODO ESTÁTICO: LLAMADO DESDE LOGIN
-    // ---------------------------------------------------------
     public static void enviarTokenManual(Context context, String usuario, String token) {
         new Thread(() -> {
             try {
-                URL url = new URL("http://192.168.0.199:8000/saveToken");
+                URL url = new URL("http://172.16.23.167:8001/saveToken");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
@@ -90,10 +83,6 @@ public class MyFirebaseService extends FirebaseMessagingService {
         }).start();
     }
 
-
-    // ---------------------------------------------------------
-    // 🔥 MÉTODO PRIVADO PARA onNewToken()
-    // ---------------------------------------------------------
     private void enviarTokenAlServidor(String usuario, String token) {
         new Thread(() -> {
             try {
@@ -103,7 +92,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
 
                 byte[] postData = params.getBytes("UTF-8");
 
-                URL url = new URL("http://192.168.0.199:8000/saveToken");
+                URL url = new URL("http://172.16.23.167:8001/saveToken");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
@@ -124,10 +113,6 @@ public class MyFirebaseService extends FirebaseMessagingService {
         }).start();
     }
 
-
-    // ---------------------------------------------------------
-    // 🔔 NOTIFICACIONES
-    // ---------------------------------------------------------
     private void mostrarNotificacion(String titulo, String mensaje) {
         createNotificationChannel();
 
@@ -167,7 +152,7 @@ public class MyFirebaseService extends FirebaseMessagingService {
 
                 byte[] postData = urlParameters.getBytes("UTF-8");
 
-                URL url = new URL("http://192.168.0.199:8000/saveToken");
+                URL url = new URL("http://172.16.23.167:8001/saveToken");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
@@ -189,5 +174,34 @@ public class MyFirebaseService extends FirebaseMessagingService {
             }
         }).start();
     }
+
+    private void guardarNotificacion(Context context, String titulo, String mensaje) {
+        SharedPreferences prefs = context.getSharedPreferences("notificaciones", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        String noti1 = prefs.getString("noti1", null);
+        String noti2 = prefs.getString("noti2", null);
+        String noti3 = prefs.getString("noti3", null);
+
+        String fecha1 = prefs.getString("fecha1", null);
+        String fecha2 = prefs.getString("fecha2", null);
+        String fecha3 = prefs.getString("fecha3", null);
+
+        String fechaActual = java.text.DateFormat.getDateTimeInstance().format(new java.util.Date());
+
+        editor.putString("noti3", noti2);
+        editor.putString("noti2", noti1);
+        editor.putString("noti1", titulo + ": " + mensaje);
+
+        editor.putString("fecha3", fecha2);
+        editor.putString("fecha2", fecha1);
+        editor.putString("fecha1", fechaActual);
+
+        editor.apply();
+
+
+        context.sendBroadcast(new android.content.Intent("NUEVA_NOTIFICACION"));
+    }
+
 
 }

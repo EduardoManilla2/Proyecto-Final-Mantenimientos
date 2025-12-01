@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText etUsuario, etContrasena;
     Button btnLogin;
-    String URL = "http://192.168.0.199:8000/login";
+    String URL = "http://172.16.23.167:8001/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         etContrasena = findViewById(R.id.etContrasena);
         btnLogin = findViewById(R.id.btnLogin);
 
-        // Si ya hay sesión activa → ir directo al menú
+
         SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
         if (prefs.contains("usuario")) {
             startActivity(new Intent(this, MainActivity.class));
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (message.contains("Inicio de sesión exitoso")) {
 
-                            // Guardar usuario en sesión
+
                             SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
                             prefs.edit().putString("usuario", usuario).apply();
 

@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:paddingBottom="4dp"/>
 
-    <!-- CheckBoxes del 1 al 5 -->
+    <!-- CheckBoxes -->
     <LinearLayout
         android:id="@+id/layoutCheckBoxes"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1"
+            android:text="B"
             android:gravity="center"/>
 
         <CheckBox
@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2"
+            android:text="R"
             android:gravity="center"/>
 
         <CheckBox
@@ -47,7 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="3"
+            android:text="M"
             android:gravity="center"/>
 
         <CheckBox
@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="4"
+            android:text="N.A"
             android:gravity="center"/>
 
         <CheckBox
@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="5"
+            android:text="N.T"
             android:gravity="center"/>
     </LinearLayout>
 

@@ -39,7 +39,7 @@ public class FragmentPlanes extends Fragment {
         adapter = new MantenimientoAdapter(new java.util.ArrayList<>());
         recyclerView.setAdapter(adapter);
 
-        // Campo de búsqueda
+
         EditText etSearch = view.findViewById(R.id.et_search);
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -71,7 +71,7 @@ public class FragmentPlanes extends Fragment {
             public void onResponse(Call<List<Mantenimiento>> call, Response<List<Mantenimiento>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Mantenimiento> listaMantenimientos = response.body();
-                    adapter.updateData(listaMantenimientos); // 🔹 Actualiza datos sin perder referencia
+                    adapter.updateData(listaMantenimientos);
                 } else {
                     Toast.makeText(getContext(), "Error en la respuesta de la API", Toast.LENGTH_LONG).show();
                 }

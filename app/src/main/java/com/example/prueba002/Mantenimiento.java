@@ -45,7 +45,7 @@ public class Mantenimiento implements Serializable {
     public String tecnicoAsignado;
 
 
-    // Genera el constructor y los métodos Getters/Setters
+
 
 
     public Mantenimiento(String tecnicoAsignado, String programandoPor, String actividad, String nombreFrecuencia, String observaciones, String fechaProx, String fechaRealiza, String fechaPrograma, String estatus, String nombreLabo, String nombreEquipo, String idMantenimiento) {

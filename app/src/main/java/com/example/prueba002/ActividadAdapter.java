@@ -62,21 +62,21 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.View
         Actividad act = lista.get(position);
         holder.nombreAct.setText(act.getNombre());
 
-        // Limpiar listeners antes de setear estados
+
         holder.cb1.setOnCheckedChangeListener(null);
         holder.cb2.setOnCheckedChangeListener(null);
         holder.cb3.setOnCheckedChangeListener(null);
         holder.cb4.setOnCheckedChangeListener(null);
         holder.cb5.setOnCheckedChangeListener(null);
 
-        // Marcar el CheckBox correspondiente al cumplimiento
+
         holder.cb1.setChecked(act.getCumplimiento() == 1);
         holder.cb2.setChecked(act.getCumplimiento() == 2);
         holder.cb3.setChecked(act.getCumplimiento() == 3);
         holder.cb4.setChecked(act.getCumplimiento() == 4);
         holder.cb5.setChecked(act.getCumplimiento() == 5);
 
-        // Listener para cada CheckBox
+
         holder.cb1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) actualizarCumplimiento(holder, act, 1);
         });
@@ -101,17 +101,17 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.View
 
 
     private void actualizarCumplimiento(ViewHolder holder, Actividad act, int valor) {
-        // Desmarcar todos los demás CheckBoxes
+
         holder.cb1.setChecked(valor == 1);
         holder.cb2.setChecked(valor == 2);
         holder.cb3.setChecked(valor == 3);
         holder.cb4.setChecked(valor == 4);
         holder.cb5.setChecked(valor == 5);
 
-        act.setCumplimiento(valor); // actualizar localmente
+        act.setCumplimiento(valor);
 
-        // Enviar PUT al backend
-        String url = "http://192.168.0.199:8000/putActividad/" + act.getIdManteAct();
+
+        String url = "http://172.16.23.167:8001/putActividad/" + act.getIdManteAct();
 
 
         JSONObject json = new JSONObject();

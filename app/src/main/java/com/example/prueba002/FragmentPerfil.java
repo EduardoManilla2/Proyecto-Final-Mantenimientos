@@ -28,7 +28,7 @@ public class FragmentPerfil extends Fragment {
 
     TextView tvFullName, tvPhoneNumber, tvEmail, tvDateOfBirth;
     public String nombre, apellidoP, apellidoM;
-    String URL_API = "http://192.168.0.199:8000/persona/"; // 👈 tu endpoint base (ajusta IP según tu red)
+    String URL_API = "http://172.16.23.167:8001/persona/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,25 +36,25 @@ public class FragmentPerfil extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        // 🔹 Referencias de los TextView
+
         tvFullName = view.findViewById(R.id.tvFullName);
         tvPhoneNumber = view.findViewById(R.id.tvPhoneNumber);
         tvEmail = view.findViewById(R.id.tvEmail);
         tvDateOfBirth = view.findViewById(R.id.tvDateOfBirth);
 
 
-        // 🔹 Recuperar usuario guardado en SharedPreferences
+
         SharedPreferences prefs = requireActivity().getSharedPreferences("sesion", getActivity().MODE_PRIVATE);
         String usuario = prefs.getString("usuario", "Invitado");
 
-        // 🔹 Cargar datos del perfil desde la API
+
         if (!usuario.equals("Invitado")) {
             obtenerDatosPerfil(usuario);
         } else {
             Toast.makeText(getContext(), "No se encontró usuario en sesión", Toast.LENGTH_SHORT).show();
         }
 
-        // 🔹 Botón atrás
+
         ImageView backButton = view.findViewById(R.id.back_arrow);
         backButton.setOnClickListener(v -> {
             if (getParentFragmentManager().getBackStackEntryCount() > 0) {
@@ -88,11 +88,6 @@ public class FragmentPerfil extends Fragment {
             ft.addToBackStack(null);
             ft.commit();
         });
-
-
-
-
-
         return view;
     }
 
@@ -107,7 +102,7 @@ public class FragmentPerfil extends Fragment {
                 null,
                 response -> {
                     try {
-                        // 🔹 Obtener los datos desde la respuesta JSON
+
                          nombre = response.getString("nombre");
                          apellidoP = response.getString("apellidoPaterno");
                          apellidoM = response.optString("apellidoMaterno", "");
@@ -115,9 +110,6 @@ public class FragmentPerfil extends Fragment {
                         String correo = response.optString("correoElectronico", "Sin correo");
                         String fechaNac = response.optString("fechaNacimiento", "No registrada");
 
-
-
-                        // 🔹 Mostrar datos en la interfaz
                         tvFullName.setText(nombre + " " + apellidoP + " " + apellidoM);
                         tvPhoneNumber.setText(telefono);
                         tvEmail.setText(correo);

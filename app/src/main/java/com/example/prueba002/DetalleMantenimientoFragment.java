@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -31,14 +29,14 @@ public class DetalleMantenimientoFragment extends Fragment {
     private ImageView backButton;
     Button btnRTarea;
 
-    String URL_API = "http://192.168.0.199:8000/getMantenimiento/";
+    String URL_API = "http://172.16.23.167:8001/getMantenimiento/";
     String idMante;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🔹 Aquí SÍ se pueden leer los argumentos
+
         if (getArguments() != null) {
             idMante = getArguments().getString("idM");
         } else {
@@ -51,13 +49,12 @@ public class DetalleMantenimientoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detalle_mantenimiento, container, false);
 
-        // 🔹 Referencias de los TextView
+        // 🔹 Referencias UI
         idMantenimiento = view.findViewById(R.id.tv_pm_id);
         nombreEquipo = view.findViewById(R.id.td_nombreEquipo);
         nombreLaboratorio = view.findViewById(R.id.td_nombreLaboratorio);
         nombreActividad = view.findViewById(R.id.td_actividades);
         statusT = view.findViewById(R.id.tv_estatuss);
-
 
         fechaProx = view.findViewById(R.id.td_fechaProx);
         frecuenciaT = view.findViewById(R.id.td_frecuencia);
@@ -68,6 +65,7 @@ public class DetalleMantenimientoFragment extends Fragment {
         observaciones = view.findViewById(R.id.td_observaciones);
         btnRTarea = view.findViewById(R.id.btn_comenzar_tarea);
 
+
         backButton = view.findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> {
             if (getParentFragmentManager().getBackStackEntryCount() > 0) {
@@ -77,12 +75,21 @@ public class DetalleMantenimientoFragment extends Fragment {
             }
         });
 
-        // 🔹 Llamar a la API SOLO si idMante existe
+
         if (idMante != null) {
             obtenerDatosMantenimiento(Integer.parseInt(idMante));
         }
 
+
         btnRTarea.setOnClickListener(v -> {
+
+
+            if (!btnRTarea.isEnabled()) {
+                Toast.makeText(getContext(), "El mantenimiento ya no se puede modificar", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
             Bundle bundle = new Bundle();
             bundle.putString("idM", idMantenimiento.getText().toString());
             bundle.putString("idEquipo", nombreEquipo.getText().toString());
@@ -101,16 +108,7 @@ public class DetalleMantenimientoFragment extends Fragment {
             ft.commit();
         });
 
-
-
-
-
-
         return view;
-
-
-
-
     }
 
     private void obtenerDatosMantenimiento(int idMantenimientoValue) {
@@ -149,29 +147,34 @@ public class DetalleMantenimientoFragment extends Fragment {
                             statusT.setText("Retrasado");
                             statusT.setTextColor(0xFFEF3012);
                             statusT.setBackgroundResource(R.drawable.rounded_status_retrazado);
+
                         } else if ("Pendiente".equalsIgnoreCase(Status)) {
                             statusT.setText("Pendiente");
                             statusT.setTextColor(0xFFEF6712);
                             statusT.setBackgroundResource(R.drawable.rounded_status_pendiente);
+
                         } else if ("Realizado".equalsIgnoreCase(Status)) {
                             statusT.setText("Realizado");
                             statusT.setTextColor(0xFF00AA00);
                             statusT.setBackgroundResource(R.drawable.rounded_status_realizado);
+
+
+                            btnRTarea.setEnabled(false);
+                            btnRTarea.setAlpha(0.4f);
+
                         } else if ("Postergado".equalsIgnoreCase(Status)) {
                             statusT.setText("Postergado");
                             statusT.setTextColor(0xFF9C9C27);
                             statusT.setBackgroundResource(R.drawable.rounded_status_postergado);
                         }
 
-
                         usuarioR.setText(empleadoEncargado);
                         usuarioS.setText(administradorSupervisa);
 
-
                         observaciones.setText(obs);
-                        // Dividir por comas
-                        String[] listaActividades = actividades.split(",");
 
+
+                        String[] listaActividades = actividades.split(",");
 
                         StringBuilder listado = new StringBuilder();
                         for (int i = 0; i < listaActividades.length; i++) {
@@ -189,6 +192,5 @@ public class DetalleMantenimientoFragment extends Fragment {
 
         queue.add(request);
     }
-
 
 }

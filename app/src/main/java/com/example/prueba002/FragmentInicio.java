@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,6 +44,10 @@ public class FragmentInicio extends Fragment {
     private RecyclerView rvMantenimientos;
     private MantenimientoAdapter adapter;
     private TextView tvNoPendientes;
+    private TextView tvOk, tvPendientesCard, tvVencido;
+    private TextView tvUsuario;
+
+    private ImageView notis;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -62,16 +68,34 @@ public class FragmentInicio extends Fragment {
         adapter = new MantenimientoAdapter(new ArrayList<>());
         rvMantenimientos.setAdapter(adapter);
 
-        // 🔹 Recuperar usuario
+        tvOk = view.findViewById(R.id.tvOk);
+        tvPendientesCard = view.findViewById(R.id.tvPendientes);
+        tvVencido = view.findViewById(R.id.tvVencido);
+        tvUsuario = view.findViewById(R.id.tvUsuario);
+        notis = view.findViewById(R.id.ivMenu);
+
+        notis.setOnClickListener(v ->{
+            FragmentTransaction ft = requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction();
+            ft.replace(R.id.contenedorFragmentos, new FragmentNoti());
+            ft.addToBackStack(null);
+            ft.commit();
+        });
+
+
         SharedPreferences prefs = requireActivity().getSharedPreferences("sesion", Context.MODE_PRIVATE);
         String usuario = prefs.getString("usuario", "Invitado");
 
-        // 🔹 Obtener calendario y mantenimientos
+
         obtenerFechasCalendario(usuario);
         obtenerMantenimientosPendientes(usuario);
+
+        cargarTotales(usuario);
+        cargarNombreUsuario(usuario);
     }
 
-    // =================== CALENDARIO ===================
+
     private void obtenerFechasCalendario(String usuario) {
         new AsyncTask<String, Void, HashSet<String>>() {
             @Override
@@ -79,7 +103,7 @@ public class FragmentInicio extends Fragment {
                 String usuario = params[0];
                 HashSet<String> fechas = new HashSet<>();
                 try {
-                    URL url = new URL("http://192.168.1.8:8000/getFechasMantenimientos?usuario=" + usuario);
+                    URL url = new URL("http://172.16.23.167:8001/getFechasMantenimientos?usuario=" + usuario);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("GET");
 
@@ -156,7 +180,7 @@ public class FragmentInicio extends Fragment {
         });
     }
 
-    // =================== MANTENIMIENTOS PENDIENTES ===================
+
     private void obtenerMantenimientosPendientes(String usuario) {
         ApiService apiService = RetrofitClient.getApiService();
         Call<List<Mantenimiento>> call = apiService.getMantenimientos(usuario);
@@ -198,5 +222,60 @@ public class FragmentInicio extends Fragment {
             }
         });
     }
+
+    private void cargarTotales(String usuario) {
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<TotalesResponse> call = apiService.getTotales(usuario);
+
+        call.enqueue(new Callback<TotalesResponse>() {
+            @Override
+            public void onResponse(Call<TotalesResponse> call, Response<TotalesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+
+                    TotalesResponse totales = response.body();
+
+
+                    tvOk.setText(String.valueOf(totales.getRealizado()));
+                    tvPendientesCard.setText(String.valueOf(totales.getPendiente()));
+                    tvVencido.setText(String.valueOf(totales.getRetrazado()));
+
+                } else {
+                    Toast.makeText(getContext(), "Error al obtener totales", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TotalesResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Fallo en la conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void cargarNombreUsuario(String usuario) {
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<NombreResponse> call = apiService.getNombreUsuario(usuario);
+
+        call.enqueue(new Callback<NombreResponse>() {
+            @Override
+            public void onResponse(Call<NombreResponse> call, Response<NombreResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+
+                    String nombre = response.body().getNombre();
+
+
+                    tvUsuario.setText(nombre);
+                } else {
+                    tvUsuario.setText("Usuario");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NombreResponse> call, Throwable t) {
+                tvUsuario.setText("Usuario");
+            }
+        });
+    }
+
+
 
 }

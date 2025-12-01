@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // ----------------------------
-        // PERMISO DE NOTIFICACIONES
-        // ----------------------------
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -41,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // ----------------------------
-        // CARGAR PRIMER FRAGMENTO
-        // ----------------------------
+
         bottomNavigation = findViewById(R.id.bottom_navigation);
         reemplazarFragmento(new FragmentInicio());
 
@@ -56,13 +52,12 @@ public class MainActivity extends AppCompatActivity {
                 reemplazarFragmento(new FragmentPlanes());
             } else if (id == R.id.btnConfiguracion) {
                 reemplazarFragmento(new FragmentConfiguracion());
+            } else if (id == R.id.btnEstadisticas){
+                reemplazarFragmento (new FragmentEstadisticas());
             }
             return true;
         });
 
-        // ----------------------------
-        // ENVIAR TOKEN CUANDO YA HAY USUARIO LOGEADO
-        // ----------------------------
         SharedPreferences prefs = getSharedPreferences("sesion", MODE_PRIVATE);
         String usuario = prefs.getString("usuario", null);
 
@@ -71,9 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // ======================================================
-    // MÉTODO PARA ENVIAR TOKEN FCM CUANDO ENTRA A MAIN
-    // ======================================================
+
     private void enviarTokenAlEntrar(String usuario) {
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
@@ -85,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
             String token = task.getResult();
             android.util.Log.d("MAIN_TOKEN", "Token obtenido en MainActivity: " + token);
 
-            // Reutilizamos el método del servicio
+
             MyFirebaseService service = new MyFirebaseService();
             service.enviarTokenManual(this, usuario, token);
         });
     }
 
-    // ------------------------------------------------------
+
     private void reemplazarFragmento(Fragment fragmento) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.contenedorFragmentos, fragmento);

@@ -47,7 +47,7 @@ public class FragmentLogeo extends Fragment {
     }
 
     private void iniciarSesion(String usuario, String contrasena) {
-        String url = "http://192.168.0.199:8000/Login"; // tu API CodeIgniter
+        String url = "http://172.16.23.167:8001/Login";
 
         JSONObject jsonBody = new JSONObject();
         try {
@@ -72,11 +72,11 @@ public class FragmentLogeo extends Fragment {
 
                             Toast.makeText(requireContext(), "Bienvenido " + user, Toast.LENGTH_SHORT).show();
 
-                            // 🔹 Aquí puedes redirigir según el tipo
+
                             if (tipo.equals("1")) {
-                                // abrir pantalla de admin
+
                             } else {
-                                // abrir pantalla de empleado
+
                             }
 
                         } else {

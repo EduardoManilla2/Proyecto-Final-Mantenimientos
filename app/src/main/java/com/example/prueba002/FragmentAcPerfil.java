@@ -31,7 +31,7 @@ public class FragmentAcPerfil extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view  = inflater.inflate(R.layout.fragment_acperfil, container, false);
 
         etNameC = view.findViewById(R.id.etName);
@@ -75,10 +75,10 @@ public class FragmentAcPerfil extends Fragment {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     requireContext(),
                     (view1, yearSelected, monthSelected, daySelected) -> {
-                        // Mes empieza desde 0
+
                         monthSelected = monthSelected + 1;
 
-                        // Formato AAAA-MM-DD
+
                         String fecha = yearSelected + "-" +
                                 (monthSelected < 10 ? "0" + monthSelected : monthSelected) + "-" +
                                 (daySelected < 10 ? "0" + daySelected : daySelected);
@@ -103,7 +103,7 @@ public class FragmentAcPerfil extends Fragment {
 
         btnCActualizarC.setOnClickListener(v -> {
 
-            // Obtener usuario desde SharedPreferences
+
             SharedPreferences prefs = requireActivity().getSharedPreferences("sesion", getActivity().MODE_PRIVATE);
             String usuario = prefs.getString("usuario", null);
 
@@ -112,7 +112,7 @@ public class FragmentAcPerfil extends Fragment {
                 return;
             }
 
-            // Obtener los datos escritos en los TextView
+
             String nombre = etNameC.getText().toString().trim();
             String apP = etApPC.getText().toString().trim();
             String apM = etApMC.getText().toString().trim();
@@ -120,7 +120,7 @@ public class FragmentAcPerfil extends Fragment {
             String email = etEmailC.getText().toString().trim();
             String fechaNac = etDateOfBirthC.getText().toString().trim();
 
-            // Crear JSON a enviar
+
             JSONObject jsonBody = new JSONObject();
             try {
                 jsonBody.put("nombre", nombre);
@@ -135,10 +135,10 @@ public class FragmentAcPerfil extends Fragment {
                 return;
             }
 
-            // URL
-            String url = "http://192.168.0.199:8000/persona/" + usuario;
 
-            // Enviar PUT con Volley
+            String url = "http://172.16.23.167:8001/persona/" + usuario;
+
+
             RequestQueue queue = Volley.newRequestQueue(requireContext());
 
             JsonObjectRequest request = new JsonObjectRequest(
@@ -148,13 +148,13 @@ public class FragmentAcPerfil extends Fragment {
                     response -> {
                         Toast.makeText(getContext(), "Datos actualizados correctamente", Toast.LENGTH_LONG).show();
 
-                        // Crear instancia del FragmentPerfil
+
                         FragmentPerfil fragmentPerfil = new FragmentPerfil();
 
-                        // Reemplazar el fragment actual con FragmentPerfil
+
                         requireActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.contenedorFragmentos, fragmentPerfil) // asegurarte que este es tu contenedor
+                                .replace(R.id.contenedorFragmentos, fragmentPerfil)
                                 .commit();
                     },
                     error -> {
